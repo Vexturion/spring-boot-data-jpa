@@ -28,4 +28,30 @@ public class ClienteDaoImpl implements IClienteDao {
         }
     }
 
+    @Override
+    @Transactional
+    public void save(Cliente cliente) {
+        try {
+            if (cliente.getId() != null && cliente.getId() > 0) {
+                em.merge(cliente);
+            } else {
+                em.persist(cliente);
+            }
+        } catch (Exception e) {
+            throw new RuntimeException("Error al guardar/actualizar el cliente", e);
+        }
+
+    }
+
+    @Override
+    @Transactional
+    public Cliente findOne(Long id) {
+        try {
+            return em.find(Cliente.class, id);
+        } catch (Exception e) {
+            System.err.println("Error al recuperar el cliente con ID: " + id);
+            throw new RuntimeException("Error al recuperar el cliente", e);
+        }
+    }
+
 }
