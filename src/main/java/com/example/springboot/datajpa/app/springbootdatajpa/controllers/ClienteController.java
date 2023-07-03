@@ -8,13 +8,12 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.bind.support.SessionStatus;
 
-import com.example.springboot.datajpa.app.springbootdatajpa.models.dao.IClienteDao;
 import com.example.springboot.datajpa.app.springbootdatajpa.models.entity.Cliente;
+import com.example.springboot.datajpa.app.springbootdatajpa.service.ClienteServiceImpl;
 
 import jakarta.validation.Valid;
 
@@ -23,12 +22,12 @@ import jakarta.validation.Valid;
 public class ClienteController {
 
     @Autowired
-    private IClienteDao clienteDao;
+    private ClienteServiceImpl clienteService;
 
     @GetMapping("/listar")
     public String listar(Model model) {
         model.addAttribute("titulo", "Listado de clientes");
-        model.addAttribute("clientes", clienteDao.findAll());
+        model.addAttribute("clientes", clienteService.findAll());
         return "listar";
     }
 
@@ -48,7 +47,7 @@ public class ClienteController {
             model.addAttribute("errors", result.getFieldErrors());
             return "form";
         }
-        clienteDao.save(cliente);
+        clienteService.save(cliente);
         status.setComplete();
         return "redirect:listar";
     }
@@ -57,7 +56,7 @@ public class ClienteController {
     public String editar(@PathVariable Long id, ModelMap model) {
         Cliente cliente = null;
         if (id > 0) {
-            cliente = clienteDao.findOne(id);
+            cliente = clienteService.findOne(id);
         } else {
             return "redirect:/listar";
         }
@@ -66,6 +65,12 @@ public class ClienteController {
         return "form";
     }
 
-
+    @RequestMapping("/eliminar/{id}")
+    public String eliminar(@PathVariable Long id) {
+        if (id > 0) {
+            clienteService.delete(id);
+        }
+        return "redirect:/listar";
+    }
 
 }

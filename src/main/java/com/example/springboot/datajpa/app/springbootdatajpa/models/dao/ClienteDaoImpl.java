@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.stereotype.Repository;
-import org.springframework.transaction.annotation.Transactional;
 
 import com.example.springboot.datajpa.app.springbootdatajpa.models.entity.Cliente;
 
@@ -18,7 +17,6 @@ public class ClienteDaoImpl implements IClienteDao {
     private EntityManager em;
 
     @Override
-    @Transactional(readOnly = true)
     public List<Cliente> findAll() {
         try {
             return em.createQuery("from Cliente").getResultList();
@@ -29,7 +27,6 @@ public class ClienteDaoImpl implements IClienteDao {
     }
 
     @Override
-    @Transactional
     public void save(Cliente cliente) {
         try {
             if (cliente.getId() != null && cliente.getId() > 0) {
@@ -44,13 +41,22 @@ public class ClienteDaoImpl implements IClienteDao {
     }
 
     @Override
-    @Transactional
     public Cliente findOne(Long id) {
         try {
             return em.find(Cliente.class, id);
         } catch (Exception e) {
             System.err.println("Error al recuperar el cliente con ID: " + id);
             throw new RuntimeException("Error al recuperar el cliente", e);
+        }
+    }
+
+    @Override
+    public void delete(Long id) {
+        try {
+            em.remove(findOne(id));
+        } catch (Exception e) {
+            System.err.println("Error al eliminar el cliente con ID: " + id);
+            throw new RuntimeException("Error al eliminar el cliente", e);
         }
     }
 

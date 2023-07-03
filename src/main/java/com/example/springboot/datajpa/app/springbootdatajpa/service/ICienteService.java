@@ -1,10 +1,10 @@
-package com.example.springboot.datajpa.app.springbootdatajpa.models.dao;
+package com.example.springboot.datajpa.app.springbootdatajpa.service;
 
 import java.util.List;
 
 import com.example.springboot.datajpa.app.springbootdatajpa.models.entity.Cliente;
 
-public interface IClienteDao {
+public interface ICienteService {
 
     public List<Cliente> findAll();
 
