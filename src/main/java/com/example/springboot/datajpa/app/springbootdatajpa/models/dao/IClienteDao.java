@@ -1,17 +1,11 @@
 package com.example.springboot.datajpa.app.springbootdatajpa.models.dao;
 
-import java.util.List;
+import org.springframework.data.jpa.repository.JpaRepository;
 
 import com.example.springboot.datajpa.app.springbootdatajpa.models.entity.Cliente;
 
-public interface IClienteDao {
+public interface IClienteDao extends JpaRepository<Cliente, Long> {
 
-    public List<Cliente> findAll();
 
-    public void save(Cliente cliente);
-
-    public Cliente findOne(Long id);
-
-    public void delete(Long id);
 
 }
