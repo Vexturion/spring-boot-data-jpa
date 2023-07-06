@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html html lang="en" xmlns:th="http://thymeleaf.org">
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
 
 <head th:replace="layout/layout :: head"></head>
 
@@ -39,6 +39,7 @@
                             </tr>
                         </tbody>
                     </table>
+                    <nav th:replace="paginator-nav :: paginator"></nav>
                 </div>
             </div>
         </div>
