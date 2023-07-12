@@ -30,27 +30,12 @@ public class PageRender<T> {
         totalPaginas = page.getTotalPages();
         paginaActual = page.getNumber() + 1;
 
-        int desde, hasta;
-        if (totalPaginas <= numElementosPorPagina) {
-            desde = 1;
-            hasta = totalPaginas;
-        } else {
-            if (paginaActual <= numElementosPorPagina / 2) {
-                desde = 1;
-                hasta = numElementosPorPagina;
-            } else if (paginaActual <= totalPaginas - numElementosPorPagina / 2) {
-                desde = totalPaginas - numElementosPorPagina + 1;
-                hasta = numElementosPorPagina;
-            } else {
-                desde = paginaActual - numElementosPorPagina / 2;
-                hasta = numElementosPorPagina;
-            }
-        }
+        int desde = Math.max(1, paginaActual - numElementosPorPagina / 2);
+        int hasta = Math.min(desde + numElementosPorPagina - 1, totalPaginas);
 
-        for (int i = 0; i < hasta; i++) {
-            paginas.add(new PageItem(desde + i, paginaActual == desde + i));
+        for (int i = desde; i <= hasta; i++) {
+            paginas.add(new PageItem(i, paginaActual == i));
         }
-
     }
 
     public boolean isFirst(){
