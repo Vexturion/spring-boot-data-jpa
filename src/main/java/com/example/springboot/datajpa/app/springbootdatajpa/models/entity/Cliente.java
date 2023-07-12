@@ -45,6 +45,8 @@ public class Cliente implements Serializable {
     @Column(name = "created_at")
     private LocalDate createdAt;
 
+    private String foto;
+
     private static final long serialVersionUID = 1L;
 
     @PrePersist

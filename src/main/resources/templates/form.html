@@ -7,7 +7,7 @@
 
     <div class="form-container">
         <h1 th:text="${titulo} ?: 'Título predeterminado'">Formulario cliente</h1>
-        <form th:action="@{/form}" th:object="${cliente}" method="post" onsubmit="return confirmarGuardado()">
+        <form th:action="@{/form}" th:object="${cliente}" method="post" onsubmit="return confirmarGuardado()" enctype="multipart/form-data">
             <table>
                 <tr>
                     <td>Nombre</td>
